@@ -1257,6 +1257,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = juce_mmm_synth;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wreorder";
@@ -1306,7 +1307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = juce_mmm_synth;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wreorder";
@@ -1448,7 +1449,7 @@
 				C66BF916178E45E70E010869 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		27F510261D73569B4F831D4F /* Build configuration list for PBXNativeTarget "juce_mmm_synth - VST3" */ = {
 			isa = XCConfigurationList;
@@ -1457,7 +1458,7 @@
 				FF06998100AD267BF6627216 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		44945456C6CEAF669D416E75 /* Build configuration list for PBXAggregateTarget "juce_mmm_synth - All" */ = {
 			isa = XCConfigurationList;
@@ -1466,7 +1467,7 @@
 				E809AEF6B45B9F8C2A425A5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		89E3510B626EE64D2CE9FCDD /* Build configuration list for PBXNativeTarget "juce_mmm_synth - Shared Code" */ = {
 			isa = XCConfigurationList;
@@ -1475,7 +1476,7 @@
 				7DC2F1BE0C4EEB23144F6034 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		F267125B30DD3409E4085BE1 /* Build configuration list for PBXProject "juce_mmm_synth" */ = {
 			isa = XCConfigurationList;
@@ -1484,7 +1485,7 @@
 				FD5B69CC69B53D548717060C /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
