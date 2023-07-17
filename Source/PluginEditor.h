@@ -25,6 +25,12 @@ public:
     void resized() override;
 
 private:
+    juce::Slider  attackSlider;
+    juce::Slider  decaySlider;
+    juce::Slider  sustainSlider;
+    juce::Slider  releaseSlider;
+    juce::ComboBox oscSelector;
+    
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     Juce_mmm_synthAudioProcessor& audioProcessor;

@@ -25,15 +25,19 @@ public:
     void stopNote (float velocity, bool allowTailOff) override;
     void pitchWheelMoved (int newPitchWheelValue) override;
     void controllerMoved (int controllerNumber, int newControllerValue) override;
-    void prepareToPlay (double sampleRate, int samplesPerBlock);
+    void prepareToPlay (double sampleRate, int samplesPerBlock, int outputChannels);
     void renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSamples) override;
     
     
 private:
+    juce::ADSR adsr;
+    juce::ADSR::Parameters adsrParams;
+    
     
     //juce::dsp::Oscillator<float> osc { [](float x) { return std::sin (x); }};
     juce::dsp::Oscillator<float> osc { [](float x) { return x < 0.0f ? -1.0f : 1.0f; }, 200 };
     juce::dsp::Gain<float> gain;
+    bool isPrepared { false };
         
     // return std::sin (x); //Sine Wave
     // return x / MathConstants<float>::pi; // Saw Wave
