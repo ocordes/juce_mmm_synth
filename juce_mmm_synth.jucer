@@ -26,6 +26,8 @@
     <GROUP id="{BBC189F7-0842-B34E-7047-E8C27B7E9C47}" name="Data">
       <FILE id="wu7XDU" name="AdsrData.cpp" compile="1" resource="0" file="Source/Data/AdsrData.cpp"/>
       <FILE id="lWmFax" name="AdsrData.h" compile="0" resource="0" file="Source/Data/AdsrData.h"/>
+      <FILE id="rT6ik0" name="OscData.cpp" compile="1" resource="0" file="Source/Data/OscData.cpp"/>
+      <FILE id="KzY4oM" name="OscData.h" compile="0" resource="0" file="Source/Data/OscData.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

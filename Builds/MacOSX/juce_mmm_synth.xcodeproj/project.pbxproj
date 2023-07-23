@@ -55,6 +55,7 @@
 		B87B1126D7B0467133C08884 /* include_juce_gui_basics.mm */ = {isa = PBXBuildFile; fileRef = 7E757D544E571CFB08818787; };
 		C97F066F40E89453D64A0E55 /* include_juce_gui_extra.mm */ = {isa = PBXBuildFile; fileRef = 48047A3769398E1B500AA631; };
 		CC7C5A0D331D8DB3F1A376D5 /* include_juce_core.mm */ = {isa = PBXBuildFile; fileRef = 22A047226CA341B7D37301AF; };
+		DB03F66825A64C0219BBC9A2 /* OscData.cpp */ = {isa = PBXBuildFile; fileRef = 6908117FA08DB08DB0D362A5; };
 		DD5FA37B524481273B219DF7 /* include_juce_graphics.mm */ = {isa = PBXBuildFile; fileRef = 69BD85B8E2AF52B90D6BFD85; };
 		DDC2755F152E0222678AE891 /* CoreAudioKit.framework */ = {isa = PBXBuildFile; fileRef = 00BA8B20D27E0A5512CD4301; };
 		E2932438CF83E00EFF6B6404 /* AdsrData.cpp */ = {isa = PBXBuildFile; fileRef = CF3E685700B96025F0EA7226; };
@@ -88,6 +89,7 @@
 		625C429C20B3F3A000E4E4EA /* juce_audio_utils */ /* juce_audio_utils */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_utils; path = "/Users/ocordes/JUCE/JUCE-7.0.5/modules/juce_audio_utils"; sourceTree = "<absolute>"; };
 		661AF50B30A33D5737067137 /* DiscRecording.framework */ /* DiscRecording.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiscRecording.framework; path = System/Library/Frameworks/DiscRecording.framework; sourceTree = SDKROOT; };
 		675D9B0E751F4DB54726F4E4 /* Cocoa.framework */ /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		6908117FA08DB08DB0D362A5 /* OscData.cpp */ /* OscData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OscData.cpp; path = ../../Source/Data/OscData.cpp; sourceTree = SOURCE_ROOT; };
 		69BD85B8E2AF52B90D6BFD85 /* include_juce_graphics.mm */ /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
 		6A3A761AF7FCEED318E1578A /* include_juce_dsp.mm */ /* include_juce_dsp.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_dsp.mm; path = ../../JuceLibraryCode/include_juce_dsp.mm; sourceTree = SOURCE_ROOT; };
 		6ACDC26123A98F838EE85C5E /* PluginEditor.cpp */ /* PluginEditor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginEditor.cpp; path = ../../Source/PluginEditor.cpp; sourceTree = SOURCE_ROOT; };
@@ -118,6 +120,7 @@
 		CF3E685700B96025F0EA7226 /* AdsrData.cpp */ /* AdsrData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AdsrData.cpp; path = ../../Source/Data/AdsrData.cpp; sourceTree = SOURCE_ROOT; };
 		D7C1171B9CF036F4E111E50E /* juce_graphics */ /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_graphics; path = "/Users/ocordes/JUCE/JUCE-7.0.5/modules/juce_graphics"; sourceTree = "<absolute>"; };
 		DB38D27C8EBAD1D4906C5D97 /* include_juce_audio_utils.mm */ /* include_juce_audio_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_utils.mm; sourceTree = SOURCE_ROOT; };
+		DE6B06265F73F04CC90559BA /* OscData.h */ /* OscData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscData.h; path = ../../Source/Data/OscData.h; sourceTree = SOURCE_ROOT; };
 		E06EBBB050C07C44FCF84C8B /* juce_gui_basics */ /* juce_gui_basics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_gui_basics; path = "/Users/ocordes/JUCE/JUCE-7.0.5/modules/juce_gui_basics"; sourceTree = "<absolute>"; };
 		E1C9414A3C3F05864B97DF52 /* include_juce_audio_plugin_client_Standalone.cpp */ /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
 		E2CBE206AEBE37969793A3E5 /* IOKit.framework */ /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
@@ -270,6 +273,8 @@
 			children = (
 				CF3E685700B96025F0EA7226,
 				368DEB08F60BF38532FFA96F,
+				6908117FA08DB08DB0D362A5,
+				DE6B06265F73F04CC90559BA,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -524,6 +529,7 @@
 				E933D0BF29F4B8EA6536B20A,
 				1AC16BC5406A6246E078092D,
 				E2932438CF83E00EFF6B6404,
+				DB03F66825A64C0219BBC9A2,
 				B4370BC2500F0E82490CB660,
 				B328BB23F22960AD8C449FDE,
 				E938723F4757B35788531A2E,
