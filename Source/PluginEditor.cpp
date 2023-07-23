@@ -24,8 +24,11 @@ Juce_mmm_synthAudioProcessorEditor::Juce_mmm_synthAudioProcessorEditor (Juce_mmm
     releaseAttachment = std::make_unique<SliderAttachment>(audioProcessor.apvts, "RELEASE", releaseSlider);
     oscSelAttachment = std::make_unique<ComboBoxAttachment>(audioProcessor.apvts, "OSC", oscSelector);
     
-    attackSlider.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
-    addAndMakeVisible (attackSlider);
+    
+    setSliderParams(attackSlider);
+    setSliderParams(decaySlider);
+    setSliderParams(sustainSlider);
+    setSliderParams(releaseSlider);
 }
 
 Juce_mmm_synthAudioProcessorEditor::~Juce_mmm_synthAudioProcessorEditor()
@@ -35,16 +38,28 @@ Juce_mmm_synthAudioProcessorEditor::~Juce_mmm_synthAudioProcessorEditor()
 //==============================================================================
 void Juce_mmm_synthAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    g.setColour (juce::Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.fillAll (juce::Colours::black);
 }
 
 void Juce_mmm_synthAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    const auto bounds = getBounds().reduced (10);
+    const auto padding = 10;
+    const auto sliderWidth = bounds.getWidth() / 4 - padding;
+    const auto sliderHeight = bounds.getWidth() / 4  - padding;
+    const auto sliderStartX = 0;
+    const auto sliderStartY = bounds.getHeight() / 2 - (sliderHeight / 2);
+    
+    attackSlider.setBounds (sliderStartX, sliderStartY, sliderWidth, sliderHeight);
+    decaySlider.setBounds (attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    sustainSlider.setBounds (decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    releaseSlider.setBounds (sustainSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    
+}
+
+void Juce_mmm_synthAudioProcessorEditor::setSliderParams (juce::Slider& slider)
+{
+    slider.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
+    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible (slider);
 }

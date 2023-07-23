@@ -35,9 +35,12 @@ private:
     juce::ADSR adsr;
     juce::ADSR::Parameters adsrParams;
     
+    juce::AudioBuffer<float> synthBuffer;
+    
     
     //juce::dsp::Oscillator<float> osc { [](float x) { return std::sin (x); }};
-    juce::dsp::Oscillator<float> osc { [](float x) { return x < 0.0f ? -1.0f : 1.0f; }, 200 };
+    juce::dsp::Oscillator<float> osc { [](float x) {return x / juce::MathConstants<float>::pi; }};
+    //juce::dsp::Oscillator<float> osc { [](float x) { return x < 0.0f ? -1.0f : 1.0f; }, 200 };
     juce::dsp::Gain<float> gain;
     bool isPrepared { false };
         
