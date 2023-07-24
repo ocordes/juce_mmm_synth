@@ -4,7 +4,8 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
               companyWebsite="www.chief-ocordes.de" companyCopyright="(C) 2023 by Oliver Cordes"
               companyName="Oliver Cordes" companyEmail="ocordes@gmx.net" pluginFormats="buildStandalone,buildVST3"
-              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
+              bundleIdentifier="com.OliverCordes.juce-mmm-synth">
   <MAINGROUP id="QfEyWZ" name="juce_mmm_synth">
     <GROUP id="{2F1FF6E6-4F10-FDC3-00FE-F1B157F71002}" name="Source">
       <FILE id="faFuZ6" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -22,6 +23,9 @@
       <FILE id="UthkXd" name="AdsrComponent.cpp" compile="1" resource="0"
             file="Source/UI/AdsrComponent.cpp"/>
       <FILE id="dPe9fj" name="AdsrComponent.h" compile="0" resource="0" file="Source/UI/AdsrComponent.h"/>
+      <FILE id="cDBsgG" name="OscComponent.cpp" compile="1" resource="0"
+            file="Source/UI/OscComponent.cpp"/>
+      <FILE id="CZ0eyI" name="OscComponent.h" compile="0" resource="0" file="Source/UI/OscComponent.h"/>
     </GROUP>
     <GROUP id="{BBC189F7-0842-B34E-7047-E8C27B7E9C47}" name="Data">
       <FILE id="wu7XDU" name="AdsrData.cpp" compile="1" resource="0" file="Source/Data/AdsrData.cpp"/>

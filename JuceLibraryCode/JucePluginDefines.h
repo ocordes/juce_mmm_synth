@@ -110,7 +110,7 @@
  #define JucePlugin_AUManufacturerCode     JucePlugin_ManufacturerCode
 #endif
 #ifndef  JucePlugin_CFBundleIdentifier
- #define JucePlugin_CFBundleIdentifier     com.OliverCordes.juce_mmm_synth
+ #define JucePlugin_CFBundleIdentifier     com.OliverCordes.juce-mmm-synth
 #endif
 #ifndef  JucePlugin_AAXIdentifier
  #define JucePlugin_AAXIdentifier          com.OliverCordes.juce_mmm_synth
