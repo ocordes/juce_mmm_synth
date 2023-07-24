@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "UI/AdsrComponent.h"
+#include "UI/OscComponent.h"
 
 //==============================================================================
 /**
@@ -28,11 +29,7 @@ public:
 private:
     Juce_mmm_synthAudioProcessor& audioProcessor;
     AdsrComponent adsr;
-    
-    juce::ComboBox oscSelector;
-    
-    using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
-    std::unique_ptr<ComboBoxAttachment> oscSelAttachment;
+    OscComponent osc;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Juce_mmm_synthAudioProcessorEditor)
 };

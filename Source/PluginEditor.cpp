@@ -11,14 +11,12 @@
 
 //==============================================================================
 Juce_mmm_synthAudioProcessorEditor::Juce_mmm_synthAudioProcessorEditor (Juce_mmm_synthAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p), adsr (audioProcessor.apvts)
+    : AudioProcessorEditor (&p), audioProcessor (p), adsr (audioProcessor.apvts), osc (audioProcessor.apvts, "OSC")
 {
     setSize (400, 300);
     
-    using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
-    oscSelAttachment = std::make_unique<ComboBoxAttachment>(audioProcessor.apvts, "OSC", oscSelector);
-    
     addAndMakeVisible (adsr);
+    addAndMakeVisible (osc);
 }
 
 Juce_mmm_synthAudioProcessorEditor::~Juce_mmm_synthAudioProcessorEditor()
@@ -34,5 +32,6 @@ void Juce_mmm_synthAudioProcessorEditor::paint (juce::Graphics& g)
 void Juce_mmm_synthAudioProcessorEditor::resized()
 {
     adsr.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight());
+    osc.setBounds(10, 10, 90, 30);
 }
 
