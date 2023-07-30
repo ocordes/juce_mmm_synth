@@ -67,5 +67,6 @@ void OscData::setFmParams (const float depth, const float freq)
 {
     fmOsc.setFrequency (freq);
     fmDepth = depth;
-    setFrequency (juce::MidiMessage::getMidiNoteInHertz(lastMidiNote) + fmMod);
+    auto currentFrequency = juce::MidiMessage::getMidiNoteInHertz(lastMidiNote) + fmMod;
+    setFrequency (currentFrequency >= 0 ? currentFrequency : currentFrequency * -1.0f);
 }

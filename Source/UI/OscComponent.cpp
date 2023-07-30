@@ -13,6 +13,8 @@
 
 //==============================================================================
 OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID, juce::String fmFreqID, juce::String fmDepthId)
+: fmFreqSlider (apvts, fmFreqID, "FM Freq", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag),
+fmDepthSlider (apvts, fmDepthId, "FM Depth", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag)
 {
     using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
     
@@ -23,37 +25,22 @@ OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::Stri
     
     oscWaveSelectorAttachment = std::make_unique<ComboBoxAttachment>(apvts, waveSelectorID, oscWaveSelector);
     
-    
-    setSliderWithLabel (fmFreqSlider, fmFreqLabel, apvts, fmFreqID, fmFreqAttachment);
+    addAndMakeVisible(fmFreqSlider);
+    addAndMakeVisible(fmDepthSlider);
 }
 
 OscComponent::~OscComponent()
 {
 }
 
-void OscComponent::paint (juce::Graphics& g)
-{
-    g.fillAll(juce::Colours::black);
-}
 
 void OscComponent::resized()
 {
-    oscWaveSelector.setBounds(0, 0, 90, 20);
-    fmFreqSlider.setBounds (0, 80, 100, 90);
-    fmFreqLabel.setBounds (fmFreqSlider.getX(), fmFreqSlider.getY()-20, fmFreqSlider.getWidth(), 20);
-}
-
-
-void OscComponent::setSliderWithLabel (juce::Slider& slider, juce::Label& label, juce::AudioProcessorValueTreeState& apvts, juce::String paramId, std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>& attachment)
-{
-    slider.setSliderStyle (juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    slider.setTextBoxStyle (juce::Slider::TextBoxBelow, true, 50, 20);
-    addAndMakeVisible (slider);
+    const auto sliderPosY = 15;
+    const auto sliderWidth = 70;
+    const auto sliderHeight = 88;
     
-    attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, paramId, slider);
-    
-    label.setColour (juce::Label::ColourIds::textColourId, juce::Colours::white);
-    label.setFont (15.0f);
-    label.setJustificationType (juce::Justification::centred);
-    addAndMakeVisible (label);
+    oscWaveSelector.setBounds  (18, 40, 100, 25);
+    fmFreqSlider.setBounds (120, sliderPosY, sliderWidth, sliderHeight);
+    fmDepthSlider.setBounds (190, sliderPosY, sliderWidth, sliderHeight);
 }

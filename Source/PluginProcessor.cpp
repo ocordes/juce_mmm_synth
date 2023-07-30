@@ -108,6 +108,8 @@ void Juce_mmm_synthAudioProcessor::prepareToPlay (double sampleRate, int samples
             voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
         }
     }
+    
+    filter.prepareToPlay (sampleRate, samplesPerBlock, getTotalNumOutputChannels());
 }
 
 void Juce_mmm_synthAudioProcessor::releaseResources()
@@ -166,9 +168,9 @@ void Juce_mmm_synthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
             auto& sustain = *apvts.getRawParameterValue ("SUSTAIN");
             auto& release = *apvts.getRawParameterValue ("RELEASE");
             
-            auto& oscWaveChoice = *apvts.getRawParameterValue ("OSC");
-            auto& fmDepth = *apvts.getRawParameterValue("FMDEPTH");
-            auto& fmFreq = *apvts.getRawParameterValue("FMFREQ");
+            auto& oscWaveChoice = *apvts.getRawParameterValue ("OSC1");
+            auto& fmDepth = *apvts.getRawParameterValue("OSC1FMDEPTH");
+            auto& fmFreq = *apvts.getRawParameterValue("OSC1FMFREQ");
 
             voice->getOscillator().setWaveType (oscWaveChoice);
             voice->getOscillator().setFmParams(fmDepth, fmFreq);
@@ -178,6 +180,16 @@ void Juce_mmm_synthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     }
 
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    
+    // Filter stuff
+
+    auto& filterType = *apvts.getRawParameterValue ("FILTERTYPE");
+    auto& frequency = *apvts.getRawParameterValue ("FILTERCUTOFF");
+    auto& resonance = *apvts.getRawParameterValue ("FILTERRESONANCE");
+    
+    filter.updateParameters(filterType, frequency, resonance);
+    
+    filter.process (buffer);
 }
 
 //==============================================================================
@@ -219,11 +231,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout Juce_mmm_synthAudioProcessor
     
     // OSC select
     
-    params.push_back (std::make_unique<juce::AudioParameterChoice> ("OSC", "Oscillator", juce::StringArray { "Sine", "Saw", "Square" }, 0));
+    params.push_back (std::make_unique<juce::AudioParameterChoice> ("OSC1", "Oscillator", juce::StringArray { "Sine", "Saw", "Square" }, 0));
     
     // FM
-    params.push_back (std::make_unique<juce::AudioParameterFloat>("FMFREQ", "FM Frequency", juce::NormalisableRange<float> { 0.0f, 1000.0f, 0.01f, 0.3f }, 0.0f));
-    params.push_back (std::make_unique<juce::AudioParameterFloat>("FMDEPTH", "FM Depth", juce::NormalisableRange<float> { 0.0f, 1000.0f, 0.01f, 0.3f}, 0.0f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>("OSC1FMFREQ", "FM Frequency", juce::NormalisableRange<float> { 0.0f, 1000.0f, 0.01f, 0.3f }, 0.0f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>("OSC1FMDEPTH", "FM Depth", juce::NormalisableRange<float> { 0.0f, 1000.0f, 0.01f, 0.3f}, 0.0f));
     
     
     // ADSR
@@ -231,6 +243,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout Juce_mmm_synthAudioProcessor
     params.push_back (std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { 0.1f, 1.0f, }, 0.1f));
     params.push_back (std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { 0.1f, 1.0f, }, 1.0f));
     params.push_back (std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { 0.1f, 3.0f, }, 0.4f));
+    
+    // Filter
+    params.push_back (std::make_unique<juce::AudioParameterChoice>("FILTERTYPE", "Filter Type", juce::StringArray { "Low Pass", "Band Pass", "High Pass" }, 0));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>("FILTERCUTOFF", "Filter Cutoff", juce::NormalisableRange<float> { 20.0f, 20000.0f, 0.1f, 0.6f }, 20000.0f, "Hz"));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>("FILTERRESONANCE", "Filter Resonance", juce::NormalisableRange<float> { 0.1f, 2.0f, 0.1f }, 0.1f, ""));
+    
     
     return { params.begin(), params.end() };
 }

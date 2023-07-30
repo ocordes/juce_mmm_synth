@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    OscComponent.h
-    Created: 24 Jul 2023 2:47:28pm
+    FilterComponent.h
+    Created: 30 Jul 2023 4:01:25pm
     Author:  Oliver Cordes
 
   ==============================================================================
@@ -11,17 +11,18 @@
 #pragma once
 
 #include <JuceHeader.h>
+
 #include "CustomComponent.h"
 #include "SliderWithLabel.h"
 
 //==============================================================================
 /*
 */
-class OscComponent  : public CustomComponent
+class FilterComponent  : public CustomComponent
 {
 public:
-    OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID, juce::String fmFreqID, juce::String fmDepthId);
-    ~OscComponent() override;
+    FilterComponent(juce::AudioProcessorValueTreeState& apvts, juce::String filterSelectorID, juce::String cutoffId, juce::String resonanceId);
+    ~FilterComponent() override;
 
     void resized() override;
 
@@ -29,17 +30,13 @@ private:
     static constexpr int dialWidth { 70 };
     static constexpr int dialHeight { 70 };
     
-    
-    juce::ComboBox oscWaveSelector;
-    juce::Label    oscWaveLabel { "Wave", "Wave"};
+    juce::ComboBox filterSelector;
     
     using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
-    std::unique_ptr<ComboBoxAttachment> oscWaveSelectorAttachment;
+    std::unique_ptr<ComboBoxAttachment> filterSelectorAttachment;
     
     
-    SliderWithLabel fmFreqSlider;
-    SliderWithLabel fmDepthSlider;
-   
-        
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OscComponent)
+    SliderWithLabel cutoffSlider;
+    SliderWithLabel resonanceSlider;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterComponent)
 };
