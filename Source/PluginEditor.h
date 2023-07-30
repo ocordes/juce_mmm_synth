@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "UI/AdsrComponent.h"
+#include "UI/FilterComponent.h"
 #include "UI/OscComponent.h"
 
 //==============================================================================
@@ -29,6 +30,7 @@ public:
 private:
     Juce_mmm_synthAudioProcessor& audioProcessor;
     AdsrComponent adsr;
+    FilterComponent filter;
     OscComponent osc;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Juce_mmm_synthAudioProcessorEditor)

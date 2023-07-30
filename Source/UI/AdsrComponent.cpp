@@ -13,48 +13,30 @@
 
 //==============================================================================
 AdsrComponent::AdsrComponent (juce::AudioProcessorValueTreeState& apvts)
+: attackSlider(apvts, "ATTACK", "A", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
+decaySlider(apvts, "DECAY", "D", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
+sustainSlider(apvts, "SUSTAIN", "S", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
+releaseSlider(apvts, "RELEASE", "R", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical)
 {
-    using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
-        
-    attackAttachment = std::make_unique<SliderAttachment>(apvts, "ATTACK", attackSlider);
-    decayAttachment = std::make_unique<SliderAttachment>(apvts, "DECAY", decaySlider);
-    sustainAttachment = std::make_unique<SliderAttachment>(apvts, "SUSTAIN", sustainSlider);
-    releaseAttachment = std::make_unique<SliderAttachment>(apvts, "RELEASE", releaseSlider);
-    
-    
-    setSliderParams(attackSlider);
-    setSliderParams(decaySlider);
-    setSliderParams(sustainSlider);
-    setSliderParams(releaseSlider);
+    addAndMakeVisible (attackSlider);
+    addAndMakeVisible (decaySlider);
+    addAndMakeVisible (sustainSlider);
+    addAndMakeVisible (releaseSlider);
 }
 
 AdsrComponent::~AdsrComponent()
 {
 }
 
-void AdsrComponent::paint (juce::Graphics& g)
-{
-    g.fillAll (juce::Colours::black);
-}
-
 void AdsrComponent::resized()
 {
-    const auto bounds = getBounds().reduced (10);
-    const auto padding = 10;
-    const auto sliderWidth = bounds.getWidth() / 4 - padding;
-    const auto sliderHeight = bounds.getHeight();
-    const auto sliderStartX = 0;
-    const auto sliderStartY = 0;
-    
-    attackSlider.setBounds (sliderStartX, sliderStartY, sliderWidth, sliderHeight);
-    decaySlider.setBounds (attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
-    sustainSlider.setBounds (decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
-    releaseSlider.setBounds (sustainSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
-}
-
-void AdsrComponent::setSliderParams (juce::Slider& slider)
-{
-    slider.setSliderStyle (juce::Slider::SliderStyle::LinearVertical);
-    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
-    addAndMakeVisible (slider);
+    const auto startX = 15;
+    const auto startY = 55;
+    const auto width = sliderWidth;
+    const auto height = sliderHeight + 20;
+        
+    attackSlider.setBounds (startX, startY, width, height);
+    decaySlider.setBounds (attackSlider.getRight(), startY, width, height);
+    sustainSlider.setBounds (decaySlider.getRight(), startY, width, height);
+    releaseSlider.setBounds (sustainSlider.getRight(), startY, width, height);
 }

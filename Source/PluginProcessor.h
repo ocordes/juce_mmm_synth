@@ -12,6 +12,8 @@
 #include "SynthSound.h"
 #include "SynthVoice.h"
 
+#include "Data/FilterData.h"
+
 //==============================================================================
 /**
 */
@@ -63,6 +65,8 @@ public:
 private:
     juce::Synthesiser synth;
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();
+    
+    FilterData filter;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Juce_mmm_synthAudioProcessor)

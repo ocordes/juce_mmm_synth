@@ -112,8 +112,12 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o \
   $(JUCE_OBJDIR)/SynthVoice_279f55df.o \
   $(JUCE_OBJDIR)/AdsrComponent_8c0b9769.o \
+  $(JUCE_OBJDIR)/CustomComponent_8675cbda.o \
+  $(JUCE_OBJDIR)/FilterComponent_6abc0f33.o \
   $(JUCE_OBJDIR)/OscComponent_45f2807a.o \
+  $(JUCE_OBJDIR)/SliderWithLabel_c8bbb0bb.o \
   $(JUCE_OBJDIR)/AdsrData_b94f6452.o \
+  $(JUCE_OBJDIR)/FilterData_fbdcfbc8.o \
   $(JUCE_OBJDIR)/OscData_4e94a44d.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
   $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
@@ -200,14 +204,34 @@ $(JUCE_OBJDIR)/AdsrComponent_8c0b9769.o: ../../Source/UI/AdsrComponent.cpp
 	@echo "Compiling AdsrComponent.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/CustomComponent_8675cbda.o: ../../Source/UI/CustomComponent.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling CustomComponent.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/FilterComponent_6abc0f33.o: ../../Source/UI/FilterComponent.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling FilterComponent.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/OscComponent_45f2807a.o: ../../Source/UI/OscComponent.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling OscComponent.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/SliderWithLabel_c8bbb0bb.o: ../../Source/UI/SliderWithLabel.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SliderWithLabel.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/AdsrData_b94f6452.o: ../../Source/Data/AdsrData.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling AdsrData.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/FilterData_fbdcfbc8.o: ../../Source/Data/FilterData.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling FilterData.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/OscData_4e94a44d.o: ../../Source/Data/OscData.cpp

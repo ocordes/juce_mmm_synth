@@ -12,27 +12,35 @@
 #include "OscComponent.h"
 
 //==============================================================================
-OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID)
+OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID, juce::String fmFreqID, juce::String fmDepthId)
+: fmFreqSlider (apvts, fmFreqID, "FM Freq", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag),
+fmDepthSlider (apvts, fmDepthId, "FM Depth", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag)
 {
+    using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
+    
     juce::StringArray choices {"Sine", "Saw", "Square"};
     oscWaveSelector.addItemList (choices, 1);
     
     addAndMakeVisible (oscWaveSelector);
     
-    using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
     oscWaveSelectorAttachment = std::make_unique<ComboBoxAttachment>(apvts, waveSelectorID, oscWaveSelector);
+    
+    addAndMakeVisible(fmFreqSlider);
+    addAndMakeVisible(fmDepthSlider);
 }
 
 OscComponent::~OscComponent()
 {
 }
 
-void OscComponent::paint (juce::Graphics& g)
-{
-    g.fillAll(juce::Colours::black);
-}
 
 void OscComponent::resized()
 {
-    oscWaveSelector.setBounds(0, 0, 90, 20);
+    const auto sliderPosY = 15;
+    const auto sliderWidth = 70;
+    const auto sliderHeight = 88;
+    
+    oscWaveSelector.setBounds  (18, 40, 100, 25);
+    fmFreqSlider.setBounds (120, sliderPosY, sliderWidth, sliderHeight);
+    fmDepthSlider.setBounds (190, sliderPosY, sliderWidth, sliderHeight);
 }
