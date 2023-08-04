@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Y4eiaw" name="juce_mmm_synth" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              companyWebsite="www.chief-ocordes.de" companyCopyright="(C) 2023 by Oliver Cordes"
-              companyName="Oliver Cordes" companyEmail="ocordes@gmx.net" pluginFormats="buildStandalone,buildVST3"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyWebsite="www.chief-ocordes.de"
+              companyCopyright="(C) 2023 by Oliver Cordes" companyName="Oliver Cordes"
+              companyEmail="ocordes@gmx.net" pluginFormats="buildStandalone,buildVST3"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
-              bundleIdentifier="com.OliverCordes.juce-mmm-synth">
+              bundleIdentifier="com.OliverCordes.juce-mmm-synth" displaySplashScreen="1">
   <MAINGROUP id="QfEyWZ" name="juce_mmm_synth">
     <GROUP id="{2F1FF6E6-4F10-FDC3-00FE-F1B157F71002}" name="Source">
       <FILE id="faFuZ6" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -30,6 +30,8 @@
               file="Source/UI/FilterComponent.cpp"/>
         <FILE id="kwoYlE" name="FilterComponent.h" compile="0" resource="0"
               file="Source/UI/FilterComponent.h"/>
+        <FILE id="H5VSwu" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/UI/LookAndFeel.cpp"/>
+        <FILE id="s2kdDG" name="LookAndFeel.h" compile="0" resource="0" file="Source/UI/LookAndFeel.h"/>
         <FILE id="cDBsgG" name="OscComponent.cpp" compile="1" resource="0"
               file="Source/UI/OscComponent.cpp"/>
         <FILE id="CZ0eyI" name="OscComponent.h" compile="0" resource="0" file="Source/UI/OscComponent.h"/>
@@ -45,6 +47,12 @@
         <FILE id="pi1jmQ" name="FilterData.h" compile="0" resource="0" file="Source/Data/FilterData.h"/>
         <FILE id="rT6ik0" name="OscData.cpp" compile="1" resource="0" file="Source/Data/OscData.cpp"/>
         <FILE id="KzY4oM" name="OscData.h" compile="0" resource="0" file="Source/Data/OscData.h"/>
+      </GROUP>
+      <GROUP id="{AE4F96DC-084F-9B90-4851-5862C6A73EBA}" name="Binary">
+        <FILE id="YhBpaK" name="knobs1_red.png" compile="0" resource="1" file="../knobdesign/knobs1_red.png"/>
+        <FILE id="T52o0M" name="knobs1_green.png" compile="0" resource="1"
+              file="../knobdesign/knobs1_green.png"/>
+        <FILE id="gJ9LvX" name="knobs1_blue.png" compile="0" resource="1" file="../knobdesign/knobs1_blue.png"/>
       </GROUP>
     </GROUP>
   </MAINGROUP>

@@ -25,12 +25,15 @@ resonanceSlider (apvts, resonanceId, "Resonance", dialWidth, dialHeight, juce::S
     
     filterSelectorAttachment = std::make_unique<ComboBoxAttachment>(apvts, filterSelectorID, filterSelector);
     
-    addAndMakeVisible(cutoffSlider);
-    addAndMakeVisible(resonanceSlider);
+    addAndMakeVisible (cutoffSlider);
+    addAndMakeVisible (resonanceSlider);
+    
+    setLookAndFeel (&otherLookAndFeel);
 }
 
 FilterComponent::~FilterComponent()
 {
+    setLookAndFeel (nullptr);
 }
 
 
