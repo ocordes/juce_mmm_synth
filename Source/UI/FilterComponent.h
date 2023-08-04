@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 
 #include "CustomComponent.h"
+#include "LookAndFeel.h"
 #include "SliderWithLabel.h"
 
 //==============================================================================
@@ -29,6 +30,9 @@ public:
 private:
     static constexpr int dialWidth { 70 };
     static constexpr int dialHeight { 70 };
+    
+    OtherLookAndFeel otherLookAndFeel; 
+    
     
     juce::ComboBox filterSelector;
     
