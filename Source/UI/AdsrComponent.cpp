@@ -12,11 +12,11 @@
 #include "AdsrComponent.h"
 
 //==============================================================================
-AdsrComponent::AdsrComponent (juce::AudioProcessorValueTreeState& apvts)
-: attackSlider(apvts, "ATTACK", "A", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
-decaySlider(apvts, "DECAY", "D", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
-sustainSlider(apvts, "SUSTAIN", "S", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
-releaseSlider(apvts, "RELEASE", "R", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical)
+AdsrComponent::AdsrComponent (juce::AudioProcessorValueTreeState& apvts, juce::String attackID, juce::String decayID, juce::String sustainID, juce::String releaseID)
+: attackSlider(apvts, attackID, "A", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
+decaySlider(apvts, decayID, "D", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
+sustainSlider(apvts, sustainID, "S", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
+releaseSlider(apvts, releaseID, "R", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical)
 {
     addAndMakeVisible (attackSlider);
     addAndMakeVisible (decaySlider);

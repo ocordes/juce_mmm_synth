@@ -29,9 +29,10 @@ public:
 
 private:
     Juce_mmm_synthAudioProcessor& audioProcessor;
+    OscComponent osc;
     AdsrComponent adsr;
     FilterComponent filter;
-    OscComponent osc;
+    AdsrComponent modAdsr;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Juce_mmm_synthAudioProcessorEditor)
 };
