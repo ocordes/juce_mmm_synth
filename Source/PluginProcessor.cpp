@@ -24,7 +24,13 @@ Juce_mmm_synthAudioProcessor::Juce_mmm_synthAudioProcessor()
 #endif
 {
     synth.addSound(new SynthSound());
-    synth.addVoice(new SynthVoice());
+    
+    for (int i = 0; i < numVoices; ++i)
+    {
+        synth.addVoice(new SynthVoice());
+    }
+    
+    m_flogger = std::unique_ptr<juce::FileLogger>(juce::FileLogger::createDateStampedLogger("foo", "mylog", ".txt", "Welcome to plugin"));
 }
 
 Juce_mmm_synthAudioProcessor::~Juce_mmm_synthAudioProcessor()
@@ -183,8 +189,13 @@ void Juce_mmm_synthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
             auto& modRelease = *apvts.getRawParameterValue ("MODRELEASE");
             
 
-            voice->getOscillator().setWaveType (oscWaveChoice);
-            voice->getOscillator().setFmParams (fmDepth, fmFreq);
+            auto& osc = voice->getOscillator1();
+            //auto& osc2 = voice->getOscillator2();
+            for (int i = 0; i < getTotalNumOutputChannels(); i++)
+            {
+                osc[i].setWaveType (oscWaveChoice);
+                osc[i].setFmParams (fmDepth, fmFreq);
+            }
             
             voice->updateAdsr (attack.load(), decay.load(), sustain.load(), release.load());
             voice->updateFilter (filterType.load(), frequency.load(), resonance.load());
@@ -234,7 +245,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout Juce_mmm_synthAudioProcessor
     
     // OSC select
     
-    params.push_back (std::make_unique<juce::AudioParameterChoice> ("OSC1", "Oscillator", juce::StringArray { "Sine", "Saw", "Square" }, 0));
+    params.push_back (std::make_unique<juce::AudioParameterChoice> ("OSC1", "Oscillator", juce::StringArray { "Sine", "Saw", "Square", "Triangle" }, 0));
     
     // FM
     params.push_back (std::make_unique<juce::AudioParameterFloat>("OSC1FMFREQ", "FM Frequency", juce::NormalisableRange<float> { 0.0f, 1000.0f, 0.01f, 0.3f }, 0.0f));

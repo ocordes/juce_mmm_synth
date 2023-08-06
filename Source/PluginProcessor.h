@@ -62,8 +62,12 @@ public:
     juce::AudioProcessorValueTreeState apvts;
     
 private:
+    static constexpr int numChannelsToProcess { 2 };
+    static constexpr int numVoices { 8 };
     juce::Synthesiser synth;
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();
+    
+    std::unique_ptr<juce::FileLogger> m_flogger;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Juce_mmm_synthAudioProcessor)

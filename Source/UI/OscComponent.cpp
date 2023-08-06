@@ -18,7 +18,7 @@ fmDepthSlider (apvts, fmDepthId, "FM Depth", dialWidth, dialHeight, juce::Slider
 {
     using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
     
-    juce::StringArray choices {"Sine", "Saw", "Square"};
+    juce::StringArray choices {"Sine", "Saw", "Square", "Triangle"};
     oscWaveSelector.addItemList (choices, 1);
     
     addAndMakeVisible (oscWaveSelector);
