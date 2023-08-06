@@ -15,13 +15,13 @@
 #include "SynthSound.h"
 #include "Data/AdsrData.h"
 #include "Data/OscData.h"
-
+#include "Data/FilterData.h"
 
 
 class SynthVoice : public juce::SynthesiserVoice
 {
 public:
-    
+    SynthVoice();
     bool canPlaySound (juce::SynthesiserSound *sound) override;
     void startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound *sound, int currentPitchWheelPosition) override;
     void stopNote (float velocity, bool allowTailOff) override;
@@ -30,24 +30,30 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock, int outputChannels);
     void renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSamples) override;
     
-    void update(const float attack, const float decay, const float sustain, const float release);
+    void reset();
+        
+    void updateAdsr(const float attack, const float decay, const float sustain, const float release);
+    void updateFilter (const int filterType, const float frequency, const float resonance);
+    void updateModAdsr(const float attack, const float decay, const float sustain, const float release);
     
-    OscData& getOscillator (void) { return osc;};
+    std::array<OscData, 2>& getOscillator1() { return osc; }
     
+
 private:
-    AdsrData adsr;
+    static constexpr int numChannelsToProcess { 2 };
+    
+    std::array<OscData, numChannelsToProcess> osc;
+    //std::array<OscData, numChannelsToProcess> osc2;
+    //std::array<FilterData, numChannelsToProcess> filter;
     
     juce::AudioBuffer<float> synthBuffer;
     
-    OscData osc;
+    //OscData osc;
+    AdsrData adsr;
+    FilterData filter;
+    AdsrData modAdsr;
     
-    //juce::dsp::Oscillator<float> osc { [](float x) { return std::sin (x); }};
-    //juce::dsp::Oscillator<float> osc { [](float x) {return x / juce::MathConstants<float>::pi; }};
-    //juce::dsp::Oscillator<float> osc { [](float x) { return x < 0.0f ? -1.0f : 1.0f; }, 200 };
+    
     juce::dsp::Gain<float> gain;
     bool isPrepared { false };
-        
-    // return std::sin (x); //Sine Wave
-    // return x / MathConstants<float>::pi; // Saw Wave
-    // return x < 0.0f ? -1.0f : 1.0f;  // Square Wave
 };

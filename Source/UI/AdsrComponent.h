@@ -20,7 +20,7 @@
 class AdsrComponent  : public CustomComponent
 {
 public:
-    AdsrComponent (juce::AudioProcessorValueTreeState& apvts);
+    AdsrComponent (juce::AudioProcessorValueTreeState& apvts, juce::String attackID, juce::String decayID, juce::String sustainID, juce::String releaseID);
     ~AdsrComponent() override;
 
     void resized() override;

@@ -18,10 +18,6 @@ void OscData::prepareToPlay(juce::dsp::ProcessSpec &spec)
 
 void OscData::setWaveType (const int choice)
 {
-    // return std::sin (x); //Sine Wave
-    // return x / MathConstants<float>::pi; // Saw Wave
-    // return x < 0.0f ? -1.0f : 1.0f;  // Square Wave
-    
     switch (choice) {
         case 0:
             // sine wave
@@ -36,6 +32,10 @@ void OscData::setWaveType (const int choice)
             initialise ([](float x) {return x < 0.0f ? -1.0f : 1.0f;} );
             break;
             
+        case 3:
+            // triangle wave
+            initialise ([](float x) { return abs(x / juce::MathConstants<float>::pi); } );
+            break;
         default:
             jassertfalse;
             break;
@@ -60,6 +60,15 @@ void OscData::getNextAudioBlock(juce::dsp::AudioBlock<float>& block)
     }
     
     process (juce::dsp::ProcessContextReplacing<float> (block));
+}
+
+
+float OscData::processNextSample (float input)
+{
+    //fmModulator = fmOsc.processSample (input) * fmDepth;
+    fmMod = fmOsc.processSample (input) * fmDepth;
+    //return gain.processSample (processSample (input));
+    return processSample (input);
 }
 
 
