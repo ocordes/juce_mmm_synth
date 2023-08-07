@@ -20,7 +20,7 @@
 class OscComponent  : public CustomComponent
 {
 public:
-    OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID, juce::String fmFreqID, juce::String fmDepthId);
+    OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID, juce::String gainId, juce::String pitchId, juce::String tuneId, juce::String fmFreqID, juce::String fmDepthId);
     ~OscComponent() override;
 
     void resized() override;
@@ -36,7 +36,9 @@ private:
     using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
     std::unique_ptr<ComboBoxAttachment> oscWaveSelectorAttachment;
     
-    
+    SliderWithLabel gainSlider;
+    SliderWithLabel pitchSlider;
+    SliderWithLabel tuneSlider;
     SliderWithLabel fmFreqSlider;
     SliderWithLabel fmDepthSlider;
    

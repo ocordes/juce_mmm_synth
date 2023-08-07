@@ -29,7 +29,8 @@ public:
 
 private:
     Juce_mmm_synthAudioProcessor& audioProcessor;
-    OscComponent osc;
+    OscComponent osc1;
+    OscComponent osc2;
     AdsrComponent adsr;
     FilterComponent filter;
     AdsrComponent modAdsr;
