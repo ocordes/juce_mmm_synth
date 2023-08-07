@@ -31,7 +31,8 @@ void SynthVoice::startNote (int midiNoteNumber, float velocity,
 {
     for (int i = 0; i < numChannelsToProcess; ++i)
     {
-        osc[i].setWaveFrequency(midiNoteNumber);
+        osc1[i].setFreq (midiNoteNumber);
+        osc2[i].setFreq (midiNoteNumber);
     }
     adsr.noteOn();
     modAdsr.noteOn();
@@ -65,6 +66,8 @@ void SynthVoice::prepareToPlay (double sampleRate, int samplesPerBlock, int outp
 {
     reset();
     
+    adsr.setSampleRate(sampleRate);
+    
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
     spec.sampleRate = sampleRate;
@@ -72,10 +75,11 @@ void SynthVoice::prepareToPlay (double sampleRate, int samplesPerBlock, int outp
     
     for (int ch = 0; ch < numChannelsToProcess; ch++)
     {
-        osc[ch].prepareToPlay (spec);
+        osc1[ch].prepareToPlay (spec);
+        osc2[ch].prepareToPlay (spec);
+        filter[ch].prepareToPlay (sampleRate, samplesPerBlock, outputChannels);
     }
-    adsr.setSampleRate(sampleRate);
-    filter.prepareToPlay (sampleRate, samplesPerBlock, outputChannels);
+
     modAdsr.setSampleRate (sampleRate);
     gain.prepare (spec);
     
@@ -100,13 +104,12 @@ void SynthVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer,
     if ( ! isVoiceActive())
         return;
     
-    if (startSample > 0)
-    {
-        DBG(startSample);
-        DBG(numSamples);
-    }
+    
     synthBuffer.setSize (outputBuffer.getNumChannels(), numSamples, false, false, true);
     modAdsr.applyEnvelopeToBuffer (outputBuffer, 0, numSamples);   // activate the modAdsr no really buffer changes
+    
+    modAdsrOutput = modAdsr.getNextSample();
+    
     synthBuffer.clear();
     
     for (int ch = 0; ch < synthBuffer.getNumChannels(); ++ch)
@@ -115,7 +118,7 @@ void SynthVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer,
             
         for (int s = 0; s < synthBuffer.getNumSamples(); ++s)
         {
-            buffer[s] = osc[ch].processNextSample (buffer[s]); // + osc2[ch].processNextSample (buffer[s]);
+            buffer[s] = osc1[ch].processNextSample (buffer[s]) + osc2[ch].processNextSample (buffer[s]);
         }
     }
         
@@ -131,7 +134,16 @@ void SynthVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer,
     adsr.applyEnvelopeToBuffer (synthBuffer, 0, synthBuffer.getNumSamples());
     
     
-    filter.process (synthBuffer);
+    for (int ch = 0; ch < synthBuffer.getNumChannels(); ++ch)
+    {
+        auto* buffer = synthBuffer.getWritePointer (ch, 0);
+        
+        for (int s = 0; s < synthBuffer.getNumSamples(); ++s)
+        {
+            buffer[s] = filter[ch].processNextSample (ch, synthBuffer.getSample
+                                                      (ch, s));
+        }
+    }
     
     
     for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
@@ -151,10 +163,17 @@ void SynthVoice::reset()
     modAdsr.reset();
 }
 
-void SynthVoice::updateFilter (const int filterType, const float frequency, const float resonance)
+void SynthVoice::updateFilter (const int filterType, const float filterCutoff, const float resonance)
 {
-    float modulator = modAdsr.getNextSample();
-    filter.updateParameters(filterType, frequency, resonance, modulator);
+    float  adsrDepth { 1.0f };
+    
+    auto cutoff = (adsrDepth * modAdsrOutput) + filterCutoff;
+    cutoff = std::clamp<float> (cutoff, 20.0f, 20000.0f);
+    
+    for (int ch = 0; ch < numChannelsToProcess; ++ch)
+    {
+        filter[ch].updateParameters(filterType, cutoff, resonance);
+    }
 }
 
 
