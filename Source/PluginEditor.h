@@ -10,14 +10,19 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include "UI/AdsrComponent.h"
-#include "UI/FilterComponent.h"
 #include "UI/OscComponent.h"
+#include "UI/FilterComponent.h"
+#include "UI/AdsrComponent.h"
+#include "UI/LfoComponent.h"
+#include "UI/ReverbComponent.h"
+#include "UI/MeterComponent.h"
+#include "UI/Assets.h"
 
 //==============================================================================
 /**
 */
 class Juce_mmm_synthAudioProcessorEditor  : public juce::AudioProcessorEditor
+, public juce::Timer
 {
 public:
     Juce_mmm_synthAudioProcessorEditor (Juce_mmm_synthAudioProcessor&);
@@ -26,14 +31,20 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    void timerCallback() override;
 
 private:
     Juce_mmm_synthAudioProcessor& audioProcessor;
     OscComponent osc1;
     OscComponent osc2;
-    AdsrComponent adsr;
     FilterComponent filter;
-    AdsrComponent modAdsr;
-    
+    AdsrComponent adsr;
+    LfoComponent lfo1;
+    AdsrComponent filterAdsr;
+    ReverbComponent reverb;
+    MeterComponent meter;
+    juce::ImageComponent logo;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Juce_mmm_synthAudioProcessorEditor)
 };

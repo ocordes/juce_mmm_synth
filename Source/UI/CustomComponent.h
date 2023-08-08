@@ -2,8 +2,8 @@
   ==============================================================================
 
     CustomComponent.h
-    Created: 30 Jul 2023 3:15:29pm
-    Author:  Oliver Cordes
+    Created: 20 Feb 2021 9:51:27am
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
@@ -16,6 +16,28 @@
 /*
 */
 
+static constexpr float fontHeight { 15.0f };
+
+class SliderWithLabel : public juce::Component
+{
+public:
+    using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
+    using SliderStyle = juce::Slider::SliderStyle;
+    
+    SliderWithLabel (juce::String labelName, juce::String paramId, juce::AudioProcessorValueTreeState& apvts, const int width, const int height, SliderStyle style = SliderStyle::RotaryHorizontalVerticalDrag);
+        
+    void resized() override;
+    
+private:
+    static constexpr int textBoxWidth { 48 };
+    static constexpr int textBoxHeight { 20 };
+    int sliderWidth { 0 };
+    int sliderHeight { 0 };
+    juce::Slider slider;
+    juce::Label label;
+    std::unique_ptr<SliderAttachment> attachment;
+};
+
 class CustomComponent  : public juce::Component
 {
 public:
@@ -24,12 +46,11 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
-
+    
     void setName (juce::String n) { name = n; }
     void setBoundsColour (juce::Colour c) { boundsColour = c; }
-    
+
 private:
-    static constexpr float fontHeight { 15.0f };
     juce::String name { "" };
     juce::Colour boundsColour { juce::Colours::white };
     

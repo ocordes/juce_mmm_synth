@@ -2,8 +2,8 @@
   ==============================================================================
 
     AdsrComponent.h
-    Created: 23 Jul 2023 2:25:49pm
-    Author:  Oliver Cordes
+    Created: 7 Feb 2021 2:28:49pm
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
@@ -12,28 +12,26 @@
 
 #include <JuceHeader.h>
 #include "CustomComponent.h"
-#include "SliderWithLabel.h"
 
 //==============================================================================
 /*
 */
-class AdsrComponent  : public CustomComponent
+class AdsrComponent : public CustomComponent
 {
 public:
-    AdsrComponent (juce::AudioProcessorValueTreeState& apvts, juce::String attackID, juce::String decayID, juce::String sustainID, juce::String releaseID);
+    AdsrComponent (juce::AudioProcessorValueTreeState& apvts, juce::String attackId, juce::String decayId, juce::String sustainId, juce::String releaseId);
     ~AdsrComponent() override;
 
     void resized() override;
 
 private:
-    static constexpr int sliderWidth { 50 };
-    static constexpr int sliderHeight { 160 };
+    SliderWithLabel attack;
+    SliderWithLabel decay;
+    SliderWithLabel sustain;
+    SliderWithLabel release;
     
-    SliderWithLabel attackSlider;
-    SliderWithLabel decaySlider;
-    SliderWithLabel sustainSlider;
-    SliderWithLabel releaseSlider;
-    
+    static constexpr int sliderWidth = 50;
+    static constexpr int sliderHeight = 260;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AdsrComponent)
 };

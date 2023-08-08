@@ -2,8 +2,8 @@
   ==============================================================================
 
     AdsrComponent.cpp
-    Created: 23 Jul 2023 2:25:49pm
-    Author:  Oliver Cordes
+    Created: 7 Feb 2021 2:28:49pm
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
@@ -12,16 +12,16 @@
 #include "AdsrComponent.h"
 
 //==============================================================================
-AdsrComponent::AdsrComponent (juce::AudioProcessorValueTreeState& apvts, juce::String attackID, juce::String decayID, juce::String sustainID, juce::String releaseID)
-: attackSlider(apvts, attackID, "A", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
-decaySlider(apvts, decayID, "D", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
-sustainSlider(apvts, sustainID, "S", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical),
-releaseSlider(apvts, releaseID, "R", sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical)
+AdsrComponent::AdsrComponent (juce::AudioProcessorValueTreeState& apvts, juce::String attackId, juce::String decayId, juce::String sustainId, juce::String releaseId)
+: attack ("A", attackId, apvts, sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical)
+, decay ("D", decayId, apvts, sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical)
+, sustain ("S", sustainId, apvts, sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical)
+, release ("R", releaseId, apvts, sliderWidth, sliderHeight, juce::Slider::SliderStyle::LinearVertical)
 {
-    addAndMakeVisible (attackSlider);
-    addAndMakeVisible (decaySlider);
-    addAndMakeVisible (sustainSlider);
-    addAndMakeVisible (releaseSlider);
+    addAndMakeVisible (attack);
+    addAndMakeVisible (decay);
+    addAndMakeVisible (sustain);
+    addAndMakeVisible (release);
 }
 
 AdsrComponent::~AdsrComponent()
@@ -34,9 +34,10 @@ void AdsrComponent::resized()
     const auto startY = 55;
     const auto width = sliderWidth;
     const auto height = sliderHeight + 20;
-        
-    attackSlider.setBounds (startX, startY, width, height);
-    decaySlider.setBounds (attackSlider.getRight(), startY, width, height);
-    sustainSlider.setBounds (decaySlider.getRight(), startY, width, height);
-    releaseSlider.setBounds (sustainSlider.getRight(), startY, width, height);
+    
+    attack.setBounds (startX, startY, width, height);
+    decay.setBounds (attack.getRight(), startY, width, height);
+    sustain.setBounds (decay.getRight(), startY, width, height);
+    release.setBounds (sustain.getRight(), startY, width, height);
 }
+

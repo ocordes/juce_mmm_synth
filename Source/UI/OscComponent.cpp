@@ -2,55 +2,56 @@
   ==============================================================================
 
     OscComponent.cpp
-    Created: 24 Jul 2023 2:47:28pm
-    Author:  Oliver Cordes
+    Created: 14 Feb 2021 6:51:39pm
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
 #include "OscComponent.h"
+#include "LookAndFeel.h"
 
 //==============================================================================
-OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID, juce::String gainId, juce::String pitchId, juce::String tuneId, juce::String fmFreqID, juce::String fmDepthId)
-: gainSlider (apvts, gainId, "OSC Gain", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag)
-, pitchSlider (apvts, pitchId, "OSC Pitch", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag)
-, tuneSlider (apvts, tuneId, "OSC Tune", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag)
-, fmFreqSlider (apvts, fmFreqID, "FM Freq", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag)
-, fmDepthSlider (apvts, fmDepthId, "FM Depth", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag)
+OscComponent::OscComponent (juce::AudioProcessorValueTreeState& apvts, juce::String oscId, juce::String gainId, juce::String pitchId, juce::String tuneId, juce::String fmFreqId, juce::String fmDepthId)
+: gain ("Gain", gainId, apvts, dialWidth, dialHeight)
+, pitch ("Pitch", pitchId, apvts, dialWidth, dialHeight)
+, tune ("Tune", tuneId, apvts, dialWidth, dialHeight)
+, fmFreq ("FM Freq", fmFreqId, apvts, dialWidth, dialHeight)
+, fmDepth ("FM Depth", fmDepthId, apvts, dialWidth, dialHeight)
 {
-    using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
+    juce::StringArray oscChoices { "Sine", "Saw", "Square", "Triangle" };
+    oscSelector.addItemList (oscChoices, 1);
+    oscSelector.setSelectedItemIndex (0);
+    addAndMakeVisible (oscSelector);
     
-    juce::StringArray choices {"Sine", "Saw", "Square", "Triangle"};
-    oscWaveSelector.addItemList (choices, 1);
+    oscSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, oscId, oscSelector);
     
-    addAndMakeVisible (oscWaveSelector);
+    addAndMakeVisible (gain);
+    addAndMakeVisible (pitch);
+    addAndMakeVisible (tune);
+    addAndMakeVisible (fmFreq);
+    addAndMakeVisible (fmDepth);
     
-    oscWaveSelectorAttachment = std::make_unique<ComboBoxAttachment>(apvts, waveSelectorID, oscWaveSelector);
-    
-    addAndMakeVisible (gainSlider);
-    addAndMakeVisible (pitchSlider);
-    addAndMakeVisible (tuneSlider);
-    addAndMakeVisible (fmFreqSlider);
-    addAndMakeVisible (fmDepthSlider);
+    setLookAndFeel (&otherLookAndFeel);
 }
-
 
 OscComponent::~OscComponent()
 {
+    setLookAndFeel (nullptr);
 }
 
 
 void OscComponent::resized()
 {
-    const auto sliderPosY = 15;
-    const auto sliderWidth = 70;
-    const auto sliderHeight = 88;
+    const auto yStart = 15;
+    const auto width = 70;
+    const auto height = 88;
     
-    oscWaveSelector.setBounds  (18, 40, 100, 25);
-    gainSlider.setBounds (120, sliderPosY, sliderWidth, sliderHeight);
-    pitchSlider.setBounds (190, sliderPosY, sliderWidth, sliderHeight);
-    tuneSlider.setBounds (260, sliderPosY, sliderWidth, sliderHeight);
-    fmFreqSlider.setBounds (330, sliderPosY, sliderWidth, sliderHeight);
-    fmDepthSlider.setBounds (400, sliderPosY, sliderWidth, sliderHeight);
+    oscSelector.setBounds (18, 40, 100, 25);
+    gain.setBounds (20, yStart+60, width, height);
+    pitch.setBounds (120, yStart, width, height);
+    tune.setBounds (190, yStart, width, height);
+    fmFreq.setBounds (260, yStart, width, height);
+    fmDepth.setBounds (330, yStart, width, height);
 }

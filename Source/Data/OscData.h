@@ -2,8 +2,8 @@
   ==============================================================================
 
     OscData.h
-    Created: 23 Jul 2023 3:46:40pm
-    Author:  Oliver Cordes
+    Created: 14 Feb 2021 6:51:17pm
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
@@ -15,25 +15,28 @@
 class OscData : public juce::dsp::Oscillator<float>
 {
 public:
-    void prepareToPlay(juce::dsp::ProcessSpec &spec);
-    void setType (const int choice);
+    void prepareToPlay (double sampleRate, int samplesPerBlock, int outputChannels);
+    void setType (const int oscSelection);
     void setGain (const float levelInDecibels);
     void setOscPitch (const int pitch);
     void setOscTune (const int tune);
     void setFreq (const int midiNoteNumber);
-    void setFmOsc (const float depth, const float freq);
-
-    void getNextAudioBlock(juce::dsp::AudioBlock<float>& block);
+    void setFmOsc (const float freq, const float depth);
+    void renderNextBlock (juce::dsp::AudioBlock<float>& audioBlock);
     float processNextSample (float input);
-
     void setParams (const int oscChoice, const float oscGain, const int oscPitch, const int oscTune, const float fmFreq, const float fmDepth);
     void resetAll();
+
 private:
     juce::dsp::Oscillator<float> fmOsc { [](float x) { return std::sin (x); }};
     juce::dsp::Gain<float> gain;
     int lastPitch { 0 };
-    float lastTune { 1.0f }; 
+    float lastTune { 1.0f };
     int lastMidiNote { 0 };
     float fmDepth { 0.0f };
     float fmModulator { 0.0f };
 };
+
+// return std::sin (x); //Sine Wave
+// return x / MathConstants<float>::pi; // Saw Wave
+// return x < 0.0f ? -1.0f : 1.0f;  // Square Wave

@@ -30,15 +30,22 @@
               file="Source/UI/FilterComponent.cpp"/>
         <FILE id="kwoYlE" name="FilterComponent.h" compile="0" resource="0"
               file="Source/UI/FilterComponent.h"/>
+        <FILE id="Z6K8uH" name="LfoComponent.cpp" compile="1" resource="0"
+              file="Source/UI/LfoComponent.cpp"/>
+        <FILE id="UKcWjE" name="LfoComponent.h" compile="0" resource="0" file="Source/UI/LfoComponent.h"/>
         <FILE id="H5VSwu" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/UI/LookAndFeel.cpp"/>
         <FILE id="s2kdDG" name="LookAndFeel.h" compile="0" resource="0" file="Source/UI/LookAndFeel.h"/>
+        <FILE id="AYxiJv" name="MeterComponent.cpp" compile="1" resource="0"
+              file="Source/UI/MeterComponent.cpp"/>
+        <FILE id="wz3pQW" name="MeterComponent.h" compile="0" resource="0"
+              file="Source/UI/MeterComponent.h"/>
         <FILE id="cDBsgG" name="OscComponent.cpp" compile="1" resource="0"
               file="Source/UI/OscComponent.cpp"/>
         <FILE id="CZ0eyI" name="OscComponent.h" compile="0" resource="0" file="Source/UI/OscComponent.h"/>
-        <FILE id="UPOq2P" name="SliderWithLabel.cpp" compile="1" resource="0"
-              file="Source/UI/SliderWithLabel.cpp"/>
-        <FILE id="Cdv0Zc" name="SliderWithLabel.h" compile="0" resource="0"
-              file="Source/UI/SliderWithLabel.h"/>
+        <FILE id="Fvssr1" name="ReverbComponent.cpp" compile="1" resource="0"
+              file="Source/UI/ReverbComponent.cpp"/>
+        <FILE id="NxNIPa" name="ReverbComponent.h" compile="0" resource="0"
+              file="Source/UI/ReverbComponent.h"/>
       </GROUP>
       <GROUP id="{BBC189F7-0842-B34E-7047-E8C27B7E9C47}" name="Data">
         <FILE id="wu7XDU" name="AdsrData.cpp" compile="1" resource="0" file="Source/Data/AdsrData.cpp"/>
@@ -47,6 +54,8 @@
         <FILE id="pi1jmQ" name="FilterData.h" compile="0" resource="0" file="Source/Data/FilterData.h"/>
         <FILE id="rT6ik0" name="OscData.cpp" compile="1" resource="0" file="Source/Data/OscData.cpp"/>
         <FILE id="KzY4oM" name="OscData.h" compile="0" resource="0" file="Source/Data/OscData.h"/>
+        <FILE id="HT21yb" name="MeterData.cpp" compile="1" resource="0" file="Source/Data/MeterData.cpp"/>
+        <FILE id="lJ2Pj6" name="MeterData.h" compile="0" resource="0" file="Source/Data/MeterData.h"/>
       </GROUP>
       <GROUP id="{AE4F96DC-084F-9B90-4851-5862C6A73EBA}" name="Binary">
         <FILE id="YhBpaK" name="knobs1_red.png" compile="0" resource="1" file="../knobdesign/knobs1_red.png"/>
@@ -77,7 +86,6 @@
         <MODULEPATH id="juce_gui_basics" path="../../JUCE/JUCE-7.0.5/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/JUCE-7.0.5/modules"/>
         <MODULEPATH id="juce_dsp" path="../../JUCE/JUCE-7.0.5/modules"/>
-        <MODULEPATH id="juce_osc" path="../../JUCE/JUCE-7.0.5/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -99,7 +107,6 @@
         <MODULEPATH id="juce_gui_basics" path="/Users/ocordes/JUCE/JUCE-7.0.5/modules"/>
         <MODULEPATH id="juce_gui_extra" path="/Users/ocordes/JUCE/JUCE-7.0.5/modules"/>
         <MODULEPATH id="juce_dsp" path="../../JUCE/JUCE-7.0.5/modules"/>
-        <MODULEPATH id="juce_osc" path="../../JUCE/JUCE-7.0.5/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
     <VS2022 targetFolder="Builds/VisualStudio2022">
@@ -121,7 +128,6 @@
         <MODULEPATH id="juce_graphics" path="/Users/ocordes/JUCE/JUCE-7.0.5/modules"/>
         <MODULEPATH id="juce_gui_basics" path="/Users/ocordes/JUCE/JUCE-7.0.5/modules"/>
         <MODULEPATH id="juce_gui_extra" path="/Users/ocordes/JUCE/JUCE-7.0.5/modules"/>
-        <MODULEPATH id="juce_osc" path="/Users/ocordes/JUCE/JUCE-7.0.5/modules"/>
       </MODULEPATHS>
     </VS2022>
   </EXPORTFORMATS>
@@ -140,6 +146,5 @@
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_osc" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
 </JUCERPROJECT>

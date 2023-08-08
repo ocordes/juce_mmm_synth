@@ -2,8 +2,8 @@
   ==============================================================================
 
     FilterComponent.h
-    Created: 30 Jul 2023 4:01:25pm
-    Author:  Oliver Cordes
+    Created: 18 Feb 2021 10:00:39pm
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
@@ -11,36 +11,28 @@
 #pragma once
 
 #include <JuceHeader.h>
-
 #include "CustomComponent.h"
-#include "LookAndFeel.h"
-#include "SliderWithLabel.h"
 
 //==============================================================================
 /*
 */
-class FilterComponent  : public CustomComponent
+class FilterComponent : public CustomComponent
 {
 public:
-    FilterComponent(juce::AudioProcessorValueTreeState& apvts, juce::String filterSelectorID, juce::String cutoffId, juce::String resonanceId);
+    FilterComponent (juce::AudioProcessorValueTreeState& apvts, juce::String filterTypeId, juce::String cutoffId, juce::String resonanceId);
     ~FilterComponent() override;
 
     void resized() override;
 
 private:
-    static constexpr int dialWidth { 70 };
-    static constexpr int dialHeight { 70 };
+    juce::ComboBox filterTypeSelector;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> filterTypeAttachment;
     
-    OtherLookAndFeel otherLookAndFeel; 
+    SliderWithLabel cutoff;
+    SliderWithLabel resonance;
     
+    static constexpr int dialWidth = 70;
+    static constexpr int dialHeight = 70;
     
-    juce::ComboBox filterSelector;
-    
-    using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
-    std::unique_ptr<ComboBoxAttachment> filterSelectorAttachment;
-    
-    
-    SliderWithLabel cutoffSlider;
-    SliderWithLabel resonanceSlider;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterComponent)
 };
