@@ -2,68 +2,78 @@
   ==============================================================================
 
     FilterData.cpp
-    Created: 30 Jul 2023 11:31:53am
-    Author:  Oliver Cordes
+    Created: 18 Feb 2021 9:26:23pm
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
 
 #include "FilterData.h"
 
-#include <JuceHeader.h>
-
-
-void FilterData::prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels)
+FilterData::FilterData()
 {
-    filter.reset();
-    
+    setType (juce::dsp::StateVariableTPTFilterType::lowpass);
+}
+
+void FilterData::setParams (const int filterType, const float filterCutoff, const float filterResonance)
+{
+    selectFilterType (filterType);
+    setCutoffFrequency (filterCutoff);
+    setResonance (filterResonance);
+}
+
+void FilterData::setLfoParams (const float freq, const float depth)
+{
+//    lfoGain = juce::Decibels::gainToDecibels (depth);
+//    lfo.setFrequency (freq);
+}
+
+void FilterData::prepareToPlay (double sampleRate, int samplesPerBlock, int outputChannels)
+{
+    resetAll();
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
     spec.sampleRate = sampleRate;
-    spec.numChannels = numChannels;
-    
-    filter.prepare(spec);
-    
-    isPrepared = true;
+    spec.numChannels = outputChannels;
+    prepare (spec);
 }
 
 
-void FilterData::process (juce::AudioBuffer<float>& buffer)
+void FilterData::selectFilterType (const int filterType)
+{    
+    switch (filterType)
+    {
+        case 0:
+            setType (juce::dsp::StateVariableTPTFilterType::lowpass);
+            break;
+            
+        case 1:
+            setType (juce::dsp::StateVariableTPTFilterType::bandpass);
+            break;
+            
+        case 2:
+            setType (juce::dsp::StateVariableTPTFilterType::highpass);
+            break;
+            
+        default:
+            setType (juce::dsp::StateVariableTPTFilterType::lowpass);
+            break;
+    }
+}
+
+void FilterData::processNextBlock(juce::AudioBuffer<float>& buffer)
 {
-    jassert (isPrepared);
-    
     juce::dsp::AudioBlock<float> block { buffer };
-    
-    filter.process (juce::dsp::ProcessContextReplacing<float> { block });
+    process (juce::dsp::ProcessContextReplacing<float>(block));
 }
-
 
 float FilterData::processNextSample (int channel, float inputValue)
 {
-    return filter.processSample (channel, inputValue);
+    return processSample (channel, inputValue);
 }
 
-
-void FilterData::updateParameters (const int filterType, const float frequency, const float resonance)
+void FilterData::resetAll()
 {
-    switch (filterType) {
-        case 0:
-            filter.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
-            break;
-        case 1:
-            filter.setType(juce::dsp::StateVariableTPTFilterType::bandpass);
-            break;
-        case 2:
-            filter.setType(juce::dsp::StateVariableTPTFilterType::highpass);
-            break;
-    }
-    
-    filter.setCutoffFrequency (frequency);
-    filter.setResonance (resonance);
-}
-
-
-void FilterData::reset ()
-{
-    filter.reset();
+    reset();
+    lfo.reset();
 }

@@ -2,8 +2,8 @@
   ==============================================================================
 
     AdsrData.h
-    Created: 23 Jul 2023 2:26:35pm
-    Author:  Oliver Cordes
+    Created: 7 Feb 2021 2:29:21pm
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
@@ -15,7 +15,7 @@
 class AdsrData : public juce::ADSR
 {
 public:
-    void updateADSR(const float attack, const float decay, const float sustain, const float release);
+    void update (const float attack, const float decay, const float sustain, const float release);
     
 private:
     juce::ADSR::Parameters adsrParams;

@@ -2,8 +2,8 @@
   ==============================================================================
 
     FilterComponent.cpp
-    Created: 30 Jul 2023 4:01:25pm
-    Author:  Oliver Cordes
+    Created: 18 Feb 2021 10:00:39pm
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
@@ -12,38 +12,35 @@
 #include "FilterComponent.h"
 
 //==============================================================================
-FilterComponent::FilterComponent(juce::AudioProcessorValueTreeState& apvts, juce::String filterSelectorID, juce::String cutoffId, juce::String resonanceId)
-:cutoffSlider (apvts, cutoffId, "CutOff Freq", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag),
-resonanceSlider (apvts, resonanceId, "Resonance", dialWidth, dialHeight, juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag)
+FilterComponent::FilterComponent (juce::AudioProcessorValueTreeState& apvts, juce::String filterTypeId, juce::String cutoffId, juce::String resonanceId)
+: cutoff ("Cutoff", cutoffId, apvts, dialWidth, dialHeight)
+, resonance ("Resonance", resonanceId, apvts, dialWidth, dialHeight)
 {
-    using ComboBoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
+    juce::StringArray filterTypeChoices { "Low Pass", "Band Pass", "High Pass" };
+    filterTypeSelector.addItemList (filterTypeChoices, 1);
+    filterTypeSelector.setSelectedItemIndex (0);
+    addAndMakeVisible (filterTypeSelector);
     
-    juce::StringArray choices {"Low pass", "Band pass", "High pass"};
-    filterSelector.addItemList (choices, 1);
+    filterTypeAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, filterTypeId, filterTypeSelector);
     
-    addAndMakeVisible (filterSelector);
-    
-    filterSelectorAttachment = std::make_unique<ComboBoxAttachment>(apvts, filterSelectorID, filterSelector);
-    
-    addAndMakeVisible (cutoffSlider);
-    addAndMakeVisible (resonanceSlider);
-    
-    setLookAndFeel (&otherLookAndFeel);
+    addAndMakeVisible (cutoff);
+    addAndMakeVisible (resonance);
 }
 
 FilterComponent::~FilterComponent()
 {
-    setLookAndFeel (nullptr);
 }
-
 
 void FilterComponent::resized()
 {
-    const auto sliderPosY = 15;
-    const auto sliderWidth = 70;
-    const auto sliderHeight = 88;
+    const auto startX = 18;
+    const auto startY = 80;
+    const auto width = 70;
+    const auto height = 88;
     
-    filterSelector.setBounds  (18, 40, 100, 25);
-    cutoffSlider.setBounds (120, sliderPosY, sliderWidth, sliderHeight);
-    resonanceSlider.setBounds (190, sliderPosY, sliderWidth, sliderHeight);
+    filterTypeSelector.setBounds (18, 40, 145, 25);
+    cutoff.setBounds (startX, startY, width, height);
+    resonance.setBounds (cutoff.getRight(), startY, width, height);
 }
+
+

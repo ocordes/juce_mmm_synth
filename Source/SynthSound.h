@@ -2,8 +2,8 @@
   ==============================================================================
 
     SynthSound.h
-    Created: 16 Jul 2023 3:05:54pm
-    Author:  Oliver Cordes
+    Created: 10 Dec 2020 1:56:00pm
+    Author:  Joshua Hodge
 
   ==============================================================================
 */
@@ -14,13 +14,8 @@
 
 class SynthSound : public juce::SynthesiserSound
 {
-    bool     appliesToNote (int midiNoteNumber) override
-    {
-        return true;
-    }
+public:
+    bool appliesToNote (int midiNoteNumber) override { return true; }
+    bool appliesToChannel (int midiChannel) override { return true; }
     
-    bool     appliesToChannel (int midiChannel) override
-    {
-        return true;
-    }
 };
